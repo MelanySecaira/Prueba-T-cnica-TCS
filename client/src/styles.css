@@ -1,0 +1,15 @@
+/* Variables de color */
+:root {
+  --color-primary: #f5f7fa;
+  --color-amarillo-desactivado: #fcf1a4;
+  --color-amarillo-activado: #f5df66;
+  --color-azul-letra: #06174e;
+}
+
+/* General */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--color-primary);
+  margin: 0;
+  padding: 0;
+}
