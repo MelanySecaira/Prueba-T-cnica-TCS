@@ -1,0 +1,167 @@
+<form [formGroup]="form" class="product-form">
+
+  <div class="grid-form">
+    <div>
+      <div class="field">
+    <label for="id">ID</label>
+    <input formControlName="id" placeholder="ID" />
+    <div class="error" *ngIf="hasError('id', 'required')">El ID es obligatorio</div>
+    <div class="error" *ngIf="hasError('id', 'minlength')">El ID debe tener al menos 3 caracteres</div>
+    <div class="error" *ngIf="hasError('id', 'maxlength')">El ID no puede superar 10 caracteres</div>
+    <div class="error" *ngIf="hasError('id', 'idExists')">El ID ya existe</div>
+  </div>
+
+  <div class="field">
+    <label for="description">Descripción</label>
+    <input formControlName="description" placeholder="Descripción"/>
+    <div class="error" *ngIf="hasError('description', 'required')">La descripción es obligatoria</div>
+    <div class="error" *ngIf="hasError('description', 'minlength')">Mínimo 10 caracteres</div>
+    <div class="error" *ngIf="hasError('description', 'maxlength')">Máximo 200 caracteres</div>
+  </div>
+
+  <div class="field">
+    <label for="date_release">Fecha de liberación</label>
+    <input type="date" formControlName="date_release" />
+    <div class="error" *ngIf="hasError('date_release', 'required')">La fecha de liberación es obligatoria</div>
+    <div class="error" *ngIf="hasError('date_release', 'minTodayDate')">
+      La fecha no puede ser anterior a hoy
+    </div>
+  </div>
+    </div>
+    <div>
+      <div class="field">
+    <label for="name">Nombre</label>
+    <input formControlName="name" placeholder="Nombre" />
+    <div class="error" *ngIf="hasError('name', 'required')">El nombre es obligatorio</div>
+    <div class="error" *ngIf="hasError('name', 'minlength')">Mínimo 5 caracteres</div>
+    <div class="error" *ngIf="hasError('name', 'maxlength')">Máximo 100 caracteres</div>
+  </div>
+
+  
+
+  <div class="field">
+    <label for="logo">Logo</label>
+    <input formControlName="logo" placeholder="Logo" />
+    <div class="error" *ngIf="hasError('logo', 'required')">El logo es obligatorio</div>
+  </div>
+
+  
+
+  <div class="field">
+    <label for="date_revision">Fecha de revisión</label>
+    <input type="date" formControlName="date_revision" readonly />
+    <div class="error" *ngIf="hasError('date_revision', 'required')">La fecha de revisión es obligatoria</div>
+    <div class="error" *ngIf="hasError('date_revision', 'notOneYearAfter')">
+      La fecha debe ser exactamente un año después de la liberación
+    </div>
+  </div>
+    </div>
+
+  </div>
+
+  
+
+  
+
+  <div class="actions">
+    <button type="button" class="secondary" (click)="onCancel()">Cancelar</button>
+
+    <button
+      type="button"
+      class="secondary"
+      *ngIf="!isEditMode"
+      (click)="resetForm()">
+      Reiniciar
+    </button>
+
+    <button
+      type="button"
+      class="primary"
+      (click)="save()"
+      [disabled]="form.invalid || form.pending">
+      {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </div>
+
+</form>
+<!-- <form [formGroup]="form" class="product-form">
+  <label for="id">ID</label>
+  <input formControlName="id" placeholder="ID" />
+
+<div class="error" *ngIf="hasError('id', 'required')">
+  El ID es obligatorio
+</div>
+<div class="error" *ngIf="hasError('id', 'minlength')">
+  El ID debe tener al menos 3 caracteres
+</div>
+<div class="error" *ngIf="hasError('id', 'maxlength')">
+  El ID no puede superar 10 caracteres
+</div>
+<div class="error" *ngIf="hasError('id', 'idExists')">
+  El ID ya existe
+</div>
+
+  <input formControlName="name" placeholder="Nombre" />
+
+<div class="error" *ngIf="hasError('name', 'required')">
+  El nombre es obligatorio
+</div>
+<div class="error" *ngIf="hasError('name', 'minlength')">
+  Mínimo 5 caracteres
+</div>
+<div class="error" *ngIf="hasError('name', 'maxlength')">
+  Máximo 100 caracteres
+</div>
+
+  <textarea formControlName="description"></textarea>
+
+<div class="error" *ngIf="hasError('description', 'required')">
+  La descripción es obligatoria
+</div>
+<div class="error" *ngIf="hasError('description', 'minlength')">
+  Mínimo 10 caracteres
+</div>
+<div class="error" *ngIf="hasError('description', 'maxlength')">
+  Máximo 200 caracteres
+</div>
+
+  <input formControlName="logo" placeholder="Logo" />
+
+<div class="error" *ngIf="hasError('logo', 'required')">
+  El logo es obligatorio
+</div>
+
+  <input
+  type="date"
+  formControlName="date_release" 
+/>
+
+
+<div class="error" *ngIf="hasError('date_release', 'required')">
+  La fecha de liberación es obligatoria
+</div>
+<div class="error" *ngIf="hasError('date_release', 'minTodayDate')">
+  La fecha no puede ser anterior a hoy
+</div>
+
+  <input type="date" formControlName="date_revision" readonly/>
+
+<div class="error" *ngIf="hasError('date_revision', 'required')">
+  La fecha de revisión es obligatoria
+</div>
+<div class="error" *ngIf="hasError('date_revision', 'notOneYearAfter')">
+  La fecha debe ser exactamente un año después de la liberación
+</div>
+
+
+  <div class="actions">
+    <button type="button" (click)="onCancel()">Cancelar</button>
+    <button
+  type="button"
+  (click)="save()"
+  [disabled]="form.invalid">
+  {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+</button>
+
+  </div>
+</form> -->

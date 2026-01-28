@@ -1,0 +1,140 @@
+<section class="product-list">
+<div class="toolbar">
+  <input class="search-input"
+    type="text"
+    placeholder="Search..."
+    [formControl]="searchControl"
+  />
+
+  <button class="btn-primary" (click)="openCreateModal()">
+    Agregar
+  </button>
+</div>
+
+<div class="table-container">
+
+   <!-- LOADING -->
+  <ng-container *ngIf="loading$ | async; else dataState">
+    <div class="skeleton-table">
+      <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5]"></div>
+    </div>
+  </ng-container>
+
+   <!-- DATA -->
+  <ng-template #dataState>
+    <ng-container *ngIf="(products$ | async)?.length; else emptyState">
+
+<table class="product-table">
+  <thead>
+    <tr>
+      <th>Logo</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Fecha liberación</th>
+      <th>Fecha revisión</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let product of products$ | async">
+      <td><img [src]="product.logo" class="logo" /></td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.date_release }}</td>
+      <td>{{ product.date_revision }}</td>
+      <!-- <td>
+        <button class="btn-link" (click)="openEditModal(product)">
+          Editar
+        </button>
+      </td> -->
+      <td class="actions-cell">
+  <div class="dropdown" (mouseleave)="closeMenu()">
+    <button
+      class="dropdown-trigger"
+      (click)="toggleMenu(product.id)">
+      ⋮
+    </button>
+
+    <div
+      class="dropdown-menu"
+      *ngIf="openMenuId === product.id">
+      <button (click)="openEditModal(product)">Editar</button>
+      <button class="danger" (click)="openDeleteModal(product)">Eliminar</button>
+    </div>
+  </div>
+</td>
+
+    </tr>
+  </tbody>
+</table>
+
+</ng-container>
+  </ng-template>
+
+  <!-- EMPTY -->
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <p>No hay productos disponibles</p>
+    </div>
+  </ng-template>
+  
+<div class="footer">
+  <span>
+    
+    {{
+      (products$ | async)?.length ?? 0
+    }}
+    Resultados
+  </span>
+
+  <select class="limit" (change)="limit$.next(+$any($event.target).value)">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+  </select>
+</div>
+</div>
+
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+
+    <!-- FORMULARIO -->
+    <ng-container *ngIf="modalMode === 'form'">
+      <div class="tittle-modal">
+        <h2>
+          {{ isEditMode ? 'Editar producto' : 'Agregar producto' }}
+        </h2>
+      </div>
+
+      <app-product-form
+        [product]="selectedProduct"
+        (saved)="onSaved()"
+        (cancel)="closeModal()">
+      </app-product-form>
+    </ng-container>
+
+    <!-- CONFIRMAR ELIMINACIÓN -->
+    <ng-container *ngIf="modalMode === 'delete'">
+
+      <p>
+        ¿Deseas eliminar el producto
+        <strong>{{ selectedProduct?.name }}</strong>?
+      </p>
+
+      <div class="actions">
+        <button class="btn-secondary" (click)="closeModal()">
+          Cancelar
+        </button>
+
+        <button class="btn-danger" (click)="confirmDelete()">
+          Eliminar
+        </button>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+
+
+</section>
