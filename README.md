@@ -16,19 +16,41 @@ El proyecto está dividido en **backend (Node.js)** y **frontend (Angular 18)**.
 
 ## 📂 Estructura del Proyecto
 
+📂 Estructura del Proyecto
+
 root/
 │
-├─ client/ # Frontend Angular
-│ ├─ src/
-│ ├─ package.json
-│ └─ ...
+├─ client/                 # Frontend Angular 18.2.21
+│  ├─ src/                 # Código fuente del frontend
+│  │  ├─ app/              # Componentes, servicios, rutas y módulos de la app
+│  │  │  ├─ core/          # Servicios globales, interceptores, constantes
+│  │  │  └─ features/      # Funcionalidades específicas (ej: products)
+│  │  │     ├─ products/   # CRUD de productos financieros
+│  │  │     │  ├─ pages/   # Componentes de página (form, list)
+│  │  │     │  ├─ services/ # Servicios relacionados a productos
+│  │  │     │  ├─ models/  # Modelos de datos
+│  │  │     │  └─ validators/ # Validaciones personalizadas
+│  │  ├─ assets/           # Recursos estáticos (imágenes, estilos globales)
+│  │  ├─ environments/     # Configuración de entornos (dev, prod)
+│  │  ├─ index.html
+│  │  ├─ main.ts
+│  │  └─ styles.css
+│  ├─ angular.json
+│  ├─ package.json
+│  ├─ jest.config.js        # Configuración de Jest
+│  └─ tsconfig.json
 │
-├─ server/ # Backend Node.js
-│ ├─ src/
-│ ├─ package.json
-│ └─ ...
+├─ server/                 # Backend Node.js + Express
+│  ├─ src/                 # Código fuente del backend
+│  │  ├─ controllers/      # Controladores de las rutas (CRUD)
+│  │  ├─ dto/              # Data Transfer Objects
+│  │  ├─ interfaces/       # Interfaces de TypeScript
+│  │  └─ const/            # Constantes globales (mensajes de error, etc.)
+│  ├─ package.json
+│  └─ tsconfig.json
 │
-└─ README.md
+└─ README.md               # Documentación del proyecto
+
 
 ---
 
@@ -64,7 +86,7 @@ cd client
 
 Instalar dependencias:
 
-npm install
+npm install --legacy-peer-deps
 
 
 Ejecutar el proyecto:
@@ -81,7 +103,7 @@ Desde la carpeta del frontend:
 npm test
 
 
-Esto ejecutará Jest y mostrará el reporte de cobertura.
+Esto ejecutará Jest y mostrará el reporte de cobertura. Resultados estimados: 
 =============================== Coverage summary ===============================
 Statements   : 97.22% ( 175/180 )
 Branches     : 80% ( 44/55 )
